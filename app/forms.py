@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form,StringField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Lenth, Email
+from wtforms.validators import DataRequired, Length, Email
 
 class ContactForm(FlaskForm):
     name = TextAreaField('Name',
