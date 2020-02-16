@@ -7,10 +7,10 @@ This file creates your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for, flash
-from forms import ContactForm
+from .forms import ContactForm
 from app import mail
-from flask_mail import Message 
-from flask.ext.mail import Message, Mail
+from flask_mail import Message ,Mail
+# from flask.mail import Message, 
 
 ###
 # Routing for your application.
@@ -25,23 +25,21 @@ def home():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        
-        msg = Message(form.subject.data, sender='contact@example.com',
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            msg = Message(form.subject.data, sender='contact@example.com',
                       recipients=['your_email@example.com'])
-        msg.body = """
-          From: %s <%s>
-          %s
-        """ % (form.name.data, form.email.data, form.msgbody.data)
-        mail.send(msg)
+            msg.body = """
+            From: %s <%s>
+            %s
+            """ % (form.name.data, form.email.data, form.msgbody.data)
+            mail.send(msg)
 
-        flash(f'Message sent sussesfully!','success')
-          
-        return 'Message sent sussesfully!' #redirect(url_for('home'))
-
-    elif request.method == 'GET':
-        return render_template('contact.html', form=form)
-
+            flash(f'Message sent sussesfully!','success')
+            
+            return 'Message sent sussesfully!' #redirect(url_for('home'))
+    return render_template('contact.html', form=form)
+ 
 
 @app.route('/about/')
 def about():
