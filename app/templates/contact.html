@@ -1,7 +1,56 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <form method="POST" action="{{ url_for('contact')}}">
-        {{ form.csrf_token }}
-    </form>
+    
+        
+        		<legend class="border-bottom mb-5">
+							<h2>Contact Form</h2>
+				</legend>
+
+				
+
+				 	{% for message in form.name.errors %}
+				    <div class="flash">{{ message }}</div>
+				  	{% endfor %}
+				 
+				  	{% for message in form.email.errors %}
+				    <div class="flash">{{ message }}</div>
+				  	{% endfor %}
+				 
+				  	{% for message in form.subject.errors %}
+				    <div class="flash">{{ message }}</div>
+				  	{% endfor %}
+				 
+				  	{% for message in form.msgbody.errors %}
+				    <div class="flash">{{ message }}</div>
+				  	{% endfor %}
+
+				<form method="POST" action="{{ url_for('contact')}}">    
+
+					{{ form.hidden_tag() }}
+ 
+						{{ form.name.label }} <strong class="text-danger">(Required)</strong>
+		                <p> Please enter your full name. </p>			
+		                <br>
+		    			{{ form.name }}
+		 
+		    			{{ form.email.label }} <strong class="text-danger">(Required)</strong>
+		                <p> Please enter your E-mail address so we can get back to you.</p>			
+		                <br>  
+		    			{{ form.email }}
+		 
+		    			{{ form.subject.label }} <strong class="text-danger">(Required)</strong>
+		                <p> Please enter the subject of your message.</p>					
+		                <br>
+		    			{{ form.subject }}
+		 
+		    			{{ form.msgbody.label }} <strong class="text-danger">(Required)</strong>
+		                <p> Please enter the message you would like to send.</p>				
+		                <br>
+		    			{{ form.msgbody }}
+		 
+		    			{{ form.send }}
+
+    			</form>
+
 {% endblock %}

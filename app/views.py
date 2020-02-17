@@ -35,10 +35,13 @@ def contact():
             """ % (form.name.data, form.email.data, form.msgbody.data)
             mail.send(msg)
 
-            flash(f'Message sent sussesfully!','success')
+            flash('Message sent sussesfully!', 'success')
             
-            return 'Message sent sussesfully!' #redirect(url_for('home'))
+            return redirect(url_for('home'))
+            
+            #return 'Message sent sussesfully!'
     return render_template('contact.html', form=form)
+
  
 
 @app.route('/about/')
